@@ -54,40 +54,15 @@
   .nav-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
     text-decoration: none;
   }
 
-  .nav-logo-icon {
-    width: 44px;
-    height: 44px;
-    background: var(--red);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    flex-shrink: 0;
+  .nav-logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
-
-  .nav-logo-icon::after {
-    content: '+';
-    color: var(--white);
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 1;
-  }
-
-  .nav-brand {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--gray-900);
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-  }
-
-  .nav-brand span { color: var(--red); }
 
   .nav-links {
     display: flex;
@@ -240,7 +215,7 @@
   .hero-tag {
     display: inline-block;
     background: var(--yellow);
-    color: var(--gray-900);
+    color: var(--white);
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 700;
@@ -283,7 +258,7 @@
 
   .btn-primary {
     background: var(--yellow);
-    color: var(--gray-900);
+    color: var(--white);
     font-family: var(--font-display);
     font-size: 16px;
     font-weight: 700;
@@ -325,40 +300,47 @@
     background: rgba(255,255,255,0.1);
   }
 
-  .hero-badge {
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.25);
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-    text-align: center;
+  .hero-photo {
     flex-shrink: 0;
-    width: 160px;
+    width: min(500px, 46vw);
+    max-width: 100%;
   }
 
-  .hero-badge-num {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--yellow);
-    line-height: 1;
+  .hero-photo-frame {
+    background: linear-gradient(165deg, #fffefb 0%, #ebe6df 100%);
+    padding: 12px 12px 36px;
+    border-radius: 3px;
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.38),
+      0 2px 0 rgba(255, 255, 255, 0.35) inset;
+  }
+
+  .hero-photo-crop {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .hero-photo-crop img {
+    width: 100%;
+    height: auto;
     display: block;
   }
 
-  .hero-badge-label {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.9);
-    margin-top: 4px;
-    display: block;
-  }
-
-  .hero-badge-sub {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 6px;
+  .hero-photo-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 38%;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--red) 0%,
+      rgba(168, 0, 12, 0.5) 40%,
+      transparent 100%
+    );
   }
 
   .hero-strip {
@@ -397,7 +379,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--gray-900);
+    color: var(--white);
   }
 
   /* ── SECTIONS COMMON ── */
@@ -430,7 +412,7 @@
     letter-spacing: -0.5px;
   }
 
-  .section-title span { color: var(--yellow-dark); }
+  .section-title span { color: var(--red); }
 
   /* ── DIFERENCIAIS ── */
   #diferenciais { background: var(--gray-100); }
@@ -474,7 +456,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: var(--yellow-dark);
+    color: var(--gray-900);
     margin-bottom: 0.5rem;
   }
 
@@ -518,7 +500,7 @@
 
   .stat-box:nth-child(even) .stat-num,
   .stat-box:nth-child(even) .stat-label {
-    color: var(--gray-900);
+    color: var(--white);
   }
 
   .stat-num {
@@ -547,56 +529,58 @@
   }
 
   .sobre-visual {
-    background: var(--red);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
     border-radius: 12px;
-    height: 380px;
+    min-height: 300px;
+    height: auto;
+    padding: 2.5rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
   }
 
   .sobre-visual-pattern {
     position: absolute;
     inset: 0;
-    opacity: 0.06;
-    background-image: repeating-linear-gradient(
-      45deg,
-      var(--white) 0, var(--white) 1px,
-      transparent 0, transparent 50%
-    );
-    background-size: 20px 20px;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 85% 75% at 50% 42%, rgba(212, 0, 15, 0.07) 0%, transparent 62%),
+      repeating-linear-gradient(
+        135deg,
+        transparent 0,
+        transparent 14px,
+        rgba(212, 0, 15, 0.04) 14px,
+        rgba(212, 0, 15, 0.04) 15px
+      );
   }
 
   .sobre-logo-big {
     position: relative;
     z-index: 2;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
   }
 
-  .sobre-logo-big .cross {
-    font-family: var(--font-display);
-    font-size: 8rem;
-    font-weight: 900;
-    color: var(--yellow);
-    line-height: 1;
+  .sobre-logo-img {
+    width: min(100%, 240px);
+    height: auto;
     display: block;
-  }
-
-  .sobre-logo-big .brand-name {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: var(--white);
-    letter-spacing: 2px;
+    object-fit: contain;
   }
 
   .sobre-logo-big .brand-since {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
-    margin-top: 4px;
+    color: var(--gray-700);
+    margin: 0;
   }
 
   /* ── UNIDADES ── */
@@ -990,21 +974,175 @@
     .nav-links, .btn-nav { display: none; }
     .hamburger { display: flex; }
 
-    .hero-content { grid-template-columns: 1fr; }
-    .hero-badge { display: none; }
+    nav { padding: 0 1.25rem; }
+
+    .hero-banner {
+      padding: 3rem 1.25rem;
+      align-items: flex-start;
+    }
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .hero-photo {
+      width: min(400px, 92vw);
+      max-width: 100%;
+      margin: 1.5rem auto 0;
+      justify-self: center;
+    }
 
     .hero-strip { flex-direction: column; }
     .strip-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); justify-content: center; }
     .strip-item:last-child { border-bottom: none; }
 
     .sobre-grid { grid-template-columns: 1fr; }
-    .sobre-visual { height: 220px; }
+    .sobre-visual { min-height: 240px; padding: 2rem 1rem; }
 
-    .vagas-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .vagas-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .vagas-grid > * { min-width: 0; }
     .form-row { grid-template-columns: 1fr; }
 
     .footer-top { grid-template-columns: 1fr; gap: 2rem; }
     .footer-nav { flex-direction: column; gap: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 0 1rem; }
+
+    .nav-logo-img { height: 34px; }
+
+    .mobile-menu { padding: 1.25rem 1rem; }
+
+    #inicio {
+      min-height: auto;
+    }
+
+    .hero-banner {
+      padding: 2rem 1rem 2.5rem;
+    }
+
+    .hero-content {
+      gap: 1.25rem;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      padding: 5px 10px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.15rem, 11vw, 3.25rem);
+      line-height: 0.95;
+      margin-bottom: 1rem;
+      overflow-wrap: break-word;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-secondary {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      padding: 14px 20px;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: min(360px, 100%);
+      margin: 1rem auto 0;
+    }
+
+    .hero-photo-frame {
+      padding: 10px 10px 28px;
+    }
+
+    .hero-photo-crop {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .hero-photo-crop img {
+      width: 100%;
+      max-width: 100%;
+      max-height: min(220px, 42vh);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .strip-item {
+      padding: 12px 1rem;
+      gap: 8px;
+    }
+
+    .strip-text {
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .strip-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .strip-icon svg { width: 14px; height: 14px; }
+
+    section { padding: 3rem 1rem; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 7vw, 2.6rem);
+    }
+
+    .diff-card { padding: 1.5rem 1.25rem; }
+
+    .sobre-stats { gap: 1rem; }
+
+    .stat-num { font-size: 2rem; }
+
+    .unidade-cta {
+      flex-direction: column;
+    }
+
+    .vagas-grid { gap: 2rem; }
+
+    .vagas-form {
+      padding: 1.5rem 1.1rem;
+    }
+
+    .form-title {
+      font-size: 1.2rem;
+    }
+
+    footer {
+      padding: 2.5rem 1rem 1.5rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
   }
 </style>
 </head>
@@ -1013,8 +1151,7 @@
 <!-- NAV -->
 <nav>
   <a href="#inicio" class="nav-logo">
-    <div class="nav-logo-icon"></div>
-    <span class="nav-brand">Tem<span>preço</span></span>
+    <img class="nav-logo-img" src="public/vermelho%20e%20amarelo.png" width="200" height="48" alt="Drogarias Tempreço">
   </a>
   <ul class="nav-links">
     <li><a href="#diferenciais">Diferenciais</a></li>
@@ -1049,17 +1186,20 @@
           Sua saúde,<br>
           <span>nosso preço.</span>
         </h1>
-        <p class="hero-subtitle">Te ajudamos a cuidar e a valorizar sua saúde e bem-estar. Atendimento humanizado, farmácia popular e entrega em domicílio.</p>
+        <p class="hero-subtitle">Te ajudamos a cuidar e a valorizar sua saúde e bem-estar. Atendimento humanizado, preços especiais pra você e entrega em domicílio.</p>
         <div class="hero-ctas">
           <a href="#unidades" class="btn-primary">Nossas Unidades</a>
           <a href="#vagas" class="btn-secondary">Trabalhe Conosco</a>
         </div>
       </div>
-      <div class="hero-badge">
-        <span class="hero-badge-num">4</span>
-        <span class="hero-badge-label">Unidades</span>
-        <p class="hero-badge-sub">Belford Roxo e Duque de Caxias</p>
-      </div>
+      <figure class="hero-photo">
+        <div class="hero-photo-frame">
+          <div class="hero-photo-crop">
+            <img src="public/frenteinauguracao.jpeg" alt="Fachada Drogarias Tempreço na inauguração" decoding="async">
+            <div class="hero-photo-fade" aria-hidden="true"></div>
+          </div>
+        </div>
+      </figure>
     </div>
   </div>
   <div class="hero-strip">
@@ -1073,7 +1213,7 @@
       <div class="strip-icon">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
       </div>
-      <span class="strip-text">Farmácia Popular</span>
+      <span class="strip-text">Preços especiais pra você</span>
     </div>
     <div class="strip-item">
       <div class="strip-icon">
@@ -1121,8 +1261,8 @@
         <div class="diff-icon">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
         </div>
-        <div class="diff-title">Farmácia Popular</div>
-        <p class="diff-text">Acesso a medicamentos essenciais com preço acessível para toda a família, no programa Farmácia Popular.</p>
+        <div class="diff-title">Preços especiais pra você</div>
+        <p class="diff-text">Medicamentos e produtos de cuidado com condições que cabem no bolso — sempre buscando o melhor custo-benefício pra você e sua família.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon">
@@ -1149,8 +1289,8 @@
       <div class="sobre-text">
         <p class="section-label">Nossa história</p>
         <h2 class="section-title">Cuidando de você<br><span>desde 2018</span></h2>
-        <p>A Rede de Drogarias Tempreço nasceu com um propósito claro: tornar o acesso a medicamentos de qualidade mais acessível para as famílias da Baixada Fluminense.</p>
-        <p>Com unidades em Belford Roxo e Duque de Caxias, crescemos com base na confiança dos nossos clientes, levando saúde, cuidado e preço justo para a nossa comunidade.</p>
+        <p>A Rede de Drogarias Tempreço nasceu com um propósito claro: tornar o acesso a medicamentos de qualidade mais acessível para Todos.</p>
+        <p>Buscamos sempre crescer com base na confiança dos nossos clientes, levando saúde, cuidado e preço justo para cada família.</p>
         <div class="sobre-stats">
           <div class="stat-box">
             <div class="stat-num">4</div>
@@ -1171,10 +1311,9 @@
         </div>
       </div>
       <div class="sobre-visual">
-        <div class="sobre-visual-pattern"></div>
+        <div class="sobre-visual-pattern" aria-hidden="true"></div>
         <div class="sobre-logo-big">
-          <span class="cross">+</span>
-          <span class="brand-name">Tempreço</span>
+          <img class="sobre-logo-img" src="public/logo.png" width="240" height="96" alt="Drogarias Tempreço">
           <p class="brand-since">Rede de Drogarias — desde 2018</p>
         </div>
       </div>
@@ -1309,13 +1448,13 @@
       <div class="vagas-info">
         <p class="section-label">Faça parte do time</p>
         <h2 class="section-title">Trabalhe<br><span>Conosco</span></h2>
-        <p style="color:rgba(255,255,255,0.85);line-height:1.7;margin-top:1rem;">Buscamos pessoas comprometidas, com vontade de crescer e ajudar as comunidades de Belford Roxo e Duque de Caxias a ter mais saúde e qualidade de vida.</p>
+        <p style="color:rgba(255,255,255,0.85);line-height:1.7;margin-top:1rem;">Buscamos pessoas comprometidas, com vontade de crescer e empenhadas em dar o melhor atendimento, nos ajudando a entregar cada vez mais saúde e qualidade de vida! .</p>
         <ul class="vagas-bullets">
           <li><span class="dot"></span> Ambiente de trabalho respeitoso e colaborativo</li>
           <li><span class="dot"></span> Oportunidades de crescimento na rede</li>
           <li><span class="dot"></span> Salário compatível com o mercado</li>
           <li><span class="dot"></span> Benefícios e estabilidade</li>
-          <li><span class="dot"></span> 4 unidades em expansão</li>
+          <li><span class="dot"></span> Unidades em expansão</li>
         </ul>
       </div>
       <div class="vagas-form">
@@ -1357,7 +1496,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-brand">Tem<span>preço</span></div>
-        <div class="footer-tagline">Rede de Drogarias — Baixada Fluminense</div>
+        <div class="footer-tagline">Rede de Drogarias </div>
       </div>
       <div class="footer-nav">
         <div class="footer-nav-col">
@@ -1440,7 +1579,7 @@
     if (unidade) corpo += `Unidade de interesse: ${unidade}\n`;
     if (msg) corpo += `\nMensagem:\n${msg}`;
 
-    const url = `mailto:rh@drogariastempreco.com.br?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+    const url = `mailto:drogariatempreco.rh@gmail.com?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
     window.location.href = url;
   }
 </script>
